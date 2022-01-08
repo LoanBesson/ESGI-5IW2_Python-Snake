@@ -104,8 +104,8 @@ def gameLoop():
         dis.fill(blue)
 
         pygame.draw.rect(dis, green, [foodx, foody, snake_block, snake_block])
-        pygame.draw.rect(dis, red, [wall1x, wall1y, snake_block * 3, snake_block])
-        pygame.draw.rect(dis, red, [wall2x, wall2y, snake_block * 3, snake_block])
+        pygame.draw.rect(dis, red, [wall1x, wall1y, snake_block, snake_block * 3])
+        pygame.draw.rect(dis, red, [wall2x, wall2y, snake_block, snake_block *3 ])
         pygame.draw.rect(dis, red, [wall3x, wall3y, snake_block * 3, snake_block])
 
         snake_Head = []
