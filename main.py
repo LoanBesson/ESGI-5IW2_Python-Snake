@@ -22,7 +22,7 @@ clock = pygame.time.Clock()
 snake_block = 10
 snake_speed = 10
  
-font_style = pygame.font.SysFont("bahnschrift", 8)
+font_style = pygame.font.SysFont("bahnschrift", 30)
 score_font = pygame.font.SysFont("comicsansms", 15)
  
 def Your_score(score):
