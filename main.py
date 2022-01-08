@@ -15,7 +15,7 @@ dis_width = 600
 dis_height = 400
  
 dis = pygame.display.set_mode((dis_width, dis_height))
-pygame.display.set_caption('Snake Game by Edureka')
+pygame.display.set_caption('Snake Game - Groupe 4 - 5IW2')
  
 clock = pygame.time.Clock()
  
@@ -25,17 +25,13 @@ snake_speed = 10
 font_style = pygame.font.SysFont("bahnschrift", 25)
 score_font = pygame.font.SysFont("comicsansms", 35)
  
- 
 def Your_score(score):
     value = score_font.render("Your Score: " + str(score), True, yellow)
     dis.blit(value, [0, 0])
  
- 
- 
 def our_snake(snake_block, snake_list):
     for x in snake_list:
         pygame.draw.rect(dis, black, [x[0], x[1], snake_block, snake_block])
- 
  
 def message(msg, color):
     mesg = font_style.render(msg, True, color)
@@ -56,6 +52,15 @@ def gameLoop():
  
     foodx = round(random.randrange(0, dis_width - snake_block) / 10.0) * 10.0
     foody = round(random.randrange(0, dis_height - snake_block) / 10.0) * 10.0
+
+    wall1x = round(random.randrange(0, dis_width - snake_block) / 10.0) * 10.0
+    wall1y = round(random.randrange(0, dis_height - snake_block) / 10.0) * 10.0
+
+    wall2x = round(random.randrange(0, dis_width - snake_block) / 10.0) * 10.0
+    wall2y = round(random.randrange(0, dis_height - snake_block) / 10.0) * 10.0
+
+    wall3x = round(random.randrange(0, dis_width - snake_block) / 10.0) * 10.0
+    wall3y = round(random.randrange(0, dis_height - snake_block) / 10.0) * 10.0
  
     while not game_over:
  
@@ -92,14 +97,22 @@ def gameLoop():
  
         if x1 >= dis_width or x1 < 0 or y1 >= dis_height or y1 < 0:
             game_close = True
+
         x1 += x1_change
         y1 += y1_change
+
         dis.fill(blue)
+
         pygame.draw.rect(dis, green, [foodx, foody, snake_block, snake_block])
+        pygame.draw.rect(dis, red, [wall1x, wall1y, snake_block, snake_block])
+        pygame.draw.rect(dis, red, [wall2x, wall2y, snake_block, snake_block])
+        pygame.draw.rect(dis, red, [wall3x, wall3y, snake_block, snake_block])
+
         snake_Head = []
         snake_Head.append(x1)
         snake_Head.append(y1)
         snake_List.append(snake_Head)
+
         if len(snake_List) > Length_of_snake:
             del snake_List[0]
  
@@ -115,7 +128,16 @@ def gameLoop():
         if x1 == foodx and y1 == foody:
             foodx = round(random.randrange(0, dis_width - snake_block) / 10.0) * 10.0
             foody = round(random.randrange(0, dis_height - snake_block) / 10.0) * 10.0
+            wall1x = round(random.randrange(0, dis_width - snake_block) / 10.0) * 10.0
+            wall1y = round(random.randrange(0, dis_height - snake_block) / 10.0) * 10.0
+            wall2x = round(random.randrange(0, dis_width - snake_block) / 10.0) * 10.0
+            wall2y = round(random.randrange(0, dis_height - snake_block) / 10.0) * 10.0
+            wall3x = round(random.randrange(0, dis_width - snake_block) / 10.0) * 10.0
+            wall3y = round(random.randrange(0, dis_height - snake_block) / 10.0) * 10.0
             Length_of_snake += 1
+
+        if (x1 == wall1x and y1 == wall1y) or (x1 == wall2x and y1 == wall2y) or (x1 == wall3x and y1 == wall3y):
+            game_close = True
  
         clock.tick(snake_speed)
  
