@@ -13,6 +13,8 @@ blue = (50, 153, 213)
  
 dis_width = 600
 dis_height = 400
+
+
  
 dis = pygame.display.set_mode((dis_width, dis_height))
 pygame.display.set_caption('Snake Game - Groupe 4 - 5IW2')
@@ -20,18 +22,19 @@ pygame.display.set_caption('Snake Game - Groupe 4 - 5IW2')
 clock = pygame.time.Clock()
  
 snake_block = 10
+wall_block = 10
 snake_speed = 10
  
 font_style = pygame.font.SysFont("bahnschrift", 30)
 score_font = pygame.font.SysFont("comicsansms", 15)
  
 def Your_score(score):
-    value = score_font.render("Your Score: " + str(score), True, yellow)
+    value = score_font.render("Votre Score: " + str(score), True, yellow)
     dis.blit(value, [0, 0])
  
 def our_snake(snake_block, snake_list):
     for x in snake_list:
-        pygame.draw.rect(dis, black, [x[0], x[1], snake_block, snake_block])
+        pygame.draw.rect(dis, green, [x[0], x[1], snake_block, snake_block])
  
 def message(msg, color):
     mesg = font_style.render(msg, True, color)
@@ -53,20 +56,23 @@ def gameLoop():
     foodx = round(random.randrange(0, dis_width - snake_block) / 10.0) * 10.0
     foody = round(random.randrange(0, dis_height - snake_block) / 10.0) * 10.0
 
-    wall1x = round(random.randrange(0, dis_width - snake_block) / 10.0) * 10.0
-    wall1y = round(random.randrange(0, dis_height - snake_block) / 10.0) * 10.0
+    wall1x = round(random.randrange(1, dis_width - wall_block) / 10.0) * 10.0
+    wall1y = round(random.randrange(1, dis_width - wall_block) / 10.0) * 10.0
 
-    wall2x = round(random.randrange(0, dis_width - snake_block) / 10.0) * 10.0
-    wall2y = round(random.randrange(0, dis_height - snake_block) / 10.0) * 10.0
+    wall2x = round(random.randrange(1, dis_width - wall_block) / 10.0) * 10.0
+    wall2y = round(random.randrange(1, dis_width - wall_block) / 10.0) * 10.0
 
-    wall3x = round(random.randrange(0, dis_width - snake_block) / 10.0) * 10.0
-    wall3y = round(random.randrange(0, dis_height - snake_block) / 10.0) * 10.0
+    wall3x = round(random.randrange(1, dis_width - wall_block) / 10.0) * 10.0
+    wall3y = round(random.randrange(1, dis_width - wall_block) / 10.0) * 10.0
+
+    wall4x = round(random.randrange(1, dis_width - wall_block) / 10.0) * 10.0
+    wall4y = round(random.randrange(1, dis_width - wall_block) / 10.0) * 10.0
  
     while not game_over:
  
         while game_close == True:
             dis.fill(blue)
-            message("You Lost! Press C-Play Again or Q-Quit", red)
+            message("Tu as perdu ! C-Play pour rejouer ou Q pour quitter", red)
             Your_score(Length_of_snake - 1)
             pygame.display.update()
  
@@ -101,12 +107,13 @@ def gameLoop():
         x1 += x1_change
         y1 += y1_change
 
-        dis.fill(blue)
+        dis.fill(black)
 
-        pygame.draw.rect(dis, green, [foodx, foody, snake_block, snake_block])
-        pygame.draw.rect(dis, red, [wall1x, wall1y, snake_block, snake_block *2])
-        pygame.draw.rect(dis, red, [wall2x, wall2y, snake_block, snake_block *2])
-        pygame.draw.rect(dis, red, [wall3x, wall3y, snake_block * 2, snake_block])
+        pygame.draw.rect(dis, yellow, [foodx, foody, snake_block, snake_block])
+        pygame.draw.rect(dis, red, [wall1x, wall1y, wall_block, wall_block])
+        pygame.draw.rect(dis, red, [wall2x, wall2y, wall_block, wall_block])
+        pygame.draw.rect(dis, red, [wall3x, wall3y, wall_block, wall_block])
+        pygame.draw.rect(dis, red, [wall4x, wall4y, wall_block, wall_block])
 
         snake_Head = []
         snake_Head.append(x1)
@@ -128,15 +135,17 @@ def gameLoop():
         if x1 == foodx and y1 == foody:
             foodx = round(random.randrange(0, dis_width - snake_block) / 10.0) * 10.0
             foody = round(random.randrange(0, dis_height - snake_block) / 10.0) * 10.0
-            wall1x = round(random.randrange(0, dis_width - snake_block) / 10.0) * 10.0
-            wall1y = round(random.randrange(0, dis_height - snake_block) / 10.0) * 10.0
-            wall2x = round(random.randrange(0, dis_width - snake_block) / 10.0) * 10.0
-            wall2y = round(random.randrange(0, dis_height - snake_block) / 10.0) * 10.0
-            wall3x = round(random.randrange(0, dis_width - snake_block) / 10.0) * 10.0
-            wall3y = round(random.randrange(0, dis_height - snake_block) / 10.0) * 10.0
+            wall1x = round(random.randrange(0, dis_width - wall_block) / 10.0) * 10.0
+            wall1y = round(random.randrange(0, dis_height - wall_block) / 10.0) * 10.0
+            wall2x = round(random.randrange(0, dis_width - wall_block) / 10.0) * 10.0
+            wall2y = round(random.randrange(0, dis_height - wall_block) / 10.0) * 10.0
+            wall3x = round(random.randrange(0, dis_width - wall_block) / 10.0) * 10.0
+            wall3y = round(random.randrange(0, dis_height - wall_block) / 10.0) * 10.0
+            wall4x = round(random.randrange(0, dis_width - wall_block) / 10.0) * 10.0
+            wall4y = round(random.randrange(0, dis_height - wall_block) / 10.0) * 10.0
             Length_of_snake += 1
 
-        if (x1 == wall1x and y1 == wall1y) or (x1 == wall2x and y1 == wall2y) or (x1 == wall3x and y1 == wall3y):
+        if (x1 == wall1x and y1 == wall1y) or (x1 == wall2x and y1 == wall2y) or (x1 == wall3x and y1 == wall3y) or (x1 == wall4x and y1 == wall4y):
             game_close = True
  
         clock.tick(snake_speed)
