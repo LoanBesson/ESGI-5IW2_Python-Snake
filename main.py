@@ -67,12 +67,18 @@ def gameLoop():
 
     wall4x = round(random.randrange(1, dis_width - wall_block) / 10.0) * 10.0
     wall4y = round(random.randrange(1, dis_width - wall_block) / 10.0) * 10.0
+
+    wall5x = round(random.randrange(1, dis_width - wall_block) / 10.0) * 10.0
+    wall5y = round(random.randrange(1, dis_width - wall_block) / 10.0) * 10.0
+
+    wall6x = round(random.randrange(1, dis_width - wall_block) / 10.0) * 10.0
+    wall6y = round(random.randrange(1, dis_width - wall_block) / 10.0) * 10.0
  
     while not game_over:
  
         while game_close == True:
             dis.fill(blue)
-            message("Tu as perdu ! C-Play pour rejouer ou Q pour quitter", red)
+            message("Tu as perdu ! C pour rejouer ou Q pour quitter", red)
             Your_score(Length_of_snake - 1)
             pygame.display.update()
  
@@ -115,6 +121,10 @@ def gameLoop():
         pygame.draw.rect(dis, red, [wall3x, wall3y, wall_block, wall_block])
         pygame.draw.rect(dis, red, [wall4x, wall4y, wall_block, wall_block])
 
+        if (Length_of_snake > 5):
+            pygame.draw.rect(dis, red, [wall5x, wall5y, wall_block, wall_block])
+            pygame.draw.rect(dis, red, [wall6x, wall6y, wall_block, wall_block])
+
         snake_Head = []
         snake_Head.append(x1)
         snake_Head.append(y1)
@@ -143,9 +153,13 @@ def gameLoop():
             wall3y = round(random.randrange(0, dis_height - wall_block) / 10.0) * 10.0
             wall4x = round(random.randrange(0, dis_width - wall_block) / 10.0) * 10.0
             wall4y = round(random.randrange(0, dis_height - wall_block) / 10.0) * 10.0
+            wall5x = round(random.randrange(0, dis_width - wall_block) / 10.0) * 10.0
+            wall5y = round(random.randrange(0, dis_height - wall_block) / 10.0) * 10.0
+            wall6x = round(random.randrange(0, dis_width - wall_block) / 10.0) * 10.0
+            wall6y = round(random.randrange(0, dis_height - wall_block) / 10.0) * 10.0
             Length_of_snake += 1
 
-        if (x1 == wall1x and y1 == wall1y) or (x1 == wall2x and y1 == wall2y) or (x1 == wall3x and y1 == wall3y) or (x1 == wall4x and y1 == wall4y):
+        if (x1 == wall1x and y1 == wall1y) or (x1 == wall2x and y1 == wall2y) or (x1 == wall3x and y1 == wall3y) or (x1 == wall4x and y1 == wall4y) or (x1 == wall5x and y1 == wall5y) or (x1 == wall6x and y1 == wall6y):
             game_close = True
  
         clock.tick(snake_speed)
