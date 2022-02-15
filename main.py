@@ -212,8 +212,8 @@ while ans:
     if ans=="1":
       print (gameLoop())
     elif ans=="2":
-      print("\n Aurevoir") 
-      ans = None
+      print(quit()) 
+      
     else:
        print("\n Choix invalide veuillez recommencer")
 
