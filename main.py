@@ -47,12 +47,9 @@ def message(msg, color):
 
 def Write_file(currentScore):
     f = open("score.txt")
-
-    print(f.read())
-    exit
-
-    if len(f.readline()) > 0:
-        bestScore = int(f.read())
+    bestScore = f.read()
+    if len(bestScore) > 0:
+        bestScore = int(bestScore)
     else:
         bestScore = 0
     f.close()
@@ -64,11 +61,13 @@ def Write_file(currentScore):
 
 def Best_score():
     f = open("score.txt")
-    if len(f.readline()) > 0:
-        bestScore = int(f.read())
+    bestScore = f.read()
+    if len(bestScore) > 0:
+        bestScore = int(bestScore)
     else:
         bestScore = 0
     f.close()
+
     value = score_font.render("Meilleur score: " + str(bestScore), True, yellow)
     dis.blit(value, [0, 20])
 
