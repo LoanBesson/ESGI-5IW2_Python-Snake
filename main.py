@@ -224,7 +224,6 @@ while ans:
       print (gameLoop())
     elif ans=="2":
       print(quit()) 
-      
     else:
        print("\n Choix invalide veuillez recommencer")
 
