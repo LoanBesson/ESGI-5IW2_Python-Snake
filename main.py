@@ -44,19 +44,31 @@ def message(msg, color):
 
 
 def Write_file(currentScore):
-    f = open("score.txt", "w")
+    f = open("score.txt")
+
+    print(f.read())
+    exit
+
+    if len(f.readline()) > 0:
+        bestScore = int(f.read())
+    else:
+        bestScore = 0
     f.close()
-    f = open("score.txt", "r")
-    bestScore = int(f.read())
+    
     if(currentScore > bestScore):
-        f = open('score.txt', "w")
-        f.write(currentScore)
-    f.close()
+        f = open("score.txt", "w")
+        f.write(str(currentScore))
+        f.close()
 
 def Best_score():
-    f = open("score.txt", "r")
-    value = score_font.render("Meilleur score: " + str(f.read()), True, yellow)
-    dis.blit(value, [20, 0])
+    f = open("score.txt")
+    if len(f.readline()) > 0:
+        bestScore = int(f.read())
+    else:
+        bestScore = 0
+    f.close()
+    value = score_font.render("Meilleur score: " + str(bestScore), True, yellow)
+    dis.blit(value, [0, 20])
 
 def gameLoop():
     game_over = False
@@ -95,7 +107,7 @@ def gameLoop():
     while not game_over:
         while game_close == True:
             dis.fill(black)
-            message("Tu as perdu ! \n Rejouer : C \n Quitter : Q", red)
+            message("Tu as perdu ! Rejouer : C / Quitter : Q", red)
             Your_score(Length_of_snake - 1)
             Write_file(Length_of_snake - 1)
             Best_score()
