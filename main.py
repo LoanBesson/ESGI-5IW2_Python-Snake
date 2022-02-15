@@ -32,7 +32,7 @@ ans=True
 
 def Your_score(score):
     value = score_font.render("Votre Score: " + str(score), True, yellow)
-    dis.blit(value, [0, 0])
+    dis.blit(value, [5, 5])
 
 
 def our_snake(snake_block, snake_list):
@@ -69,7 +69,7 @@ def Best_score():
     f.close()
 
     value = score_font.render("Meilleur score: " + str(bestScore), True, yellow)
-    dis.blit(value, [0, 20])
+    dis.blit(value, [5, 25])
 
 def gameLoop():
     game_over = False
