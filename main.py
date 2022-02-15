@@ -47,7 +47,7 @@ def Write_file(currentScore):
     f = open("score.txt", "w")
     f.close()
     f = open("score.txt", "r")
-    bestScore = f.read()
+    bestScore = int(f.read())
     if(currentScore > bestScore):
         f = open('score.txt', "w")
         f.write(currentScore)
