@@ -27,6 +27,8 @@ snake_speed = 10
 font_style = pygame.font.SysFont("bahnschrift", 30)
 score_font = pygame.font.SysFont("comicsansms", 15)
 
+ans=True
+
 
 def Your_score(score):
     value = score_font.render("Votre Score: " + str(score), True, yellow)
@@ -201,6 +203,20 @@ def gameLoop():
 
     pygame.quit()
     quit()
-
+while ans:
+    print("""
+    1.jouer
+    2.Quitter
+    """)
+    ans=input("Que voulez-vous faire ")
+    if ans=="1":
+      print (gameLoop())
+    elif ans=="2":
+      print("\n Aurevoir") 
+      ans = None
+    else:
+       print("\n Choix invalide veuillez recommencer")
 
 gameLoop()
+
+
