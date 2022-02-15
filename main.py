@@ -77,8 +77,8 @@ def gameLoop():
     while not game_over:
  
         while game_close == True:
-            dis.fill(blue)
-            message("Tu as perdu ! C pour rejouer ou Q pour quitter", red)
+            dis.fill(black)
+            message("Tu as perdu ! \n Rejouer : C \n Quitter : Q", black)
             Your_score(Length_of_snake - 1)
             pygame.display.update()
  
