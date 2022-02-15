@@ -63,11 +63,13 @@ def Best_score(currentScore):
         if(len(score.strip()) > 0):
             scores.append(int(score.strip()))
 
+    # S'il n'y a pas de score, bestScore à 0
     if len(scores) > 0:
         bestScore = max(scores)
     else:
         bestScore = 0
 
+    # Liste des 5 derniers scores
     if len(scores) >= 5:
         lastScores = [scores[len(scores)-1], scores[len(scores)-2], scores[len(scores)-3], scores[len(scores)-4], scores[len(scores)-5]]
     elif len(scores) == 4:
@@ -276,11 +278,13 @@ while menu:
         if(len(score.strip()) > 0):
             scores.append(int(score.strip()))
 
+    # S'il n'y a pas de score, bestScore à 0
     if len(scores) > 0:
         bestScore = max(scores)
     else:
         bestScore = 0
 
+    # Liste des 5 derniers scores
     if len(scores) >= 5:
         lastScores = [scores[len(scores)-1], scores[len(scores)-2], scores[len(scores)-3], scores[len(scores)-4], scores[len(scores)-5]]
     elif len(scores) == 4:
