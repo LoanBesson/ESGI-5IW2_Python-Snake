@@ -161,9 +161,15 @@ def gameLoop():
                     y1_change = snake_block
                     x1_change = 0
 
-        # Si le serpent sort de la fenêtre, le joueur perd
-        if x1 >= dis_width or x1 < 0 or y1 >= dis_height or y1 < 0:
-            game_close = True
+        # Si le serpent sort de la fenêtre, on le téléporte à l'opposé
+        if x1 >= dis_width:
+            x1 = 0
+        elif x1 < 0:
+            x1 = dis_width
+        elif y1 >= dis_height:
+            y1 = 0
+        elif y1 < 0:
+            y1 = dis_height
 
         # Affectation du nouvel emplacement du serpent
         x1 += x1_change
