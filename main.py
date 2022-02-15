@@ -49,43 +49,54 @@ def message(msg, color):
     mesg = font_style.render(msg, True, color)
     dis.blit(mesg, [dis_width / 6, dis_height / 3])
 
-# Fonction de sauvegarde du meilleur score
-def Write_file(currentScore):
-    # Lit le meilleur score enregistré et s'il n'y en a pas, affecte 0
-    f = open("score.txt", 'r')
-    bestScore = f.read()
-    if len(bestScore) > 0:
-        bestScore = int(bestScore)
-    else:
-        bestScore = 0
+# Fonction de sauvegarde et affichage du meilleur score
+def Best_score(currentScore):
+    # Enregistre le score du joueur
+    f = open("scores.txt", "a")
+    f.write(str(currentScore) + "\n")
     f.close()
-    
-    # Si le joueur a obtenu un meilleur score que celui enregistré, remplace le meilleur score
-    if(currentScore > bestScore):
-        f = open("score.txt", "w")
-        f.write(str(currentScore))
-        f.close()
 
-# Fonction d'affichage du meilleur score
-def Best_score():
-    # Lit le meilleur score enregistré et s'il n'y en a pas, affecte 0
-    f = open("score.txt", 'r')
-    bestScore = f.read()
-    if len(bestScore) > 0:
-        bestScore = int(bestScore)
+    # Récupère la liste des scores
+    scores = []
+    f = open("scores.txt", 'r')
+    for score in f.readlines():
+        if(len(score.strip()) > 0):
+            scores.append(int(score.strip()))
+
+    if len(scores) > 0:
+        bestScore = max(scores)
     else:
         bestScore = 0
-    f.close()
+
+    if len(scores) >= 5:
+        lastScores = [scores[len(scores)-1], scores[len(scores)-2], scores[len(scores)-3], scores[len(scores)-4], scores[len(scores)-5]]
+    elif len(scores) == 4:
+        lastScores = [scores[len(scores)-1], scores[len(scores)-2], scores[len(scores)-3], scores[len(scores)-4]]
+    elif len(scores) == 3:
+        lastScores = [scores[len(scores)-1], scores[len(scores)-2], scores[len(scores)-3]]
+    elif len(scores) == 2:
+        lastScores = [scores[len(scores)-1], scores[len(scores)-2]]
+    elif len(scores) == 1:
+        lastScores = scores
+    else:
+        lastScores = []
 
     # Affichage du meilleur score
-    value = score_font.render("Meilleur score: " + str(bestScore), True, yellow)
-    dis.blit(value, [5, 25])
+    bestScoreMessage = score_font.render("Meilleur score : " + str(bestScore), True, yellow)
+    dis.blit(bestScoreMessage, [5, 25])
+
+    # Affichage des 5 derniers scores
+    lastScoresMessage = score_font.render("Liste des 5 derniers scores : " + str(lastScores), True, yellow)
+    dis.blit(lastScoresMessage, [5, 45])
 
 # La boucle du jeu
 def gameLoop():
     # Variables de fonctionnement du jeu
     game_over = False
     game_close = False
+    
+    # Blocage de l'écriture du score
+    writeScore = True
 
     # Position au centre de la fenêtre
     x1 = dis_width / 2
@@ -128,11 +139,12 @@ def gameLoop():
             dis.fill(black)
             message("Tu as perdu ! Rejouer : C / Quitter : Q", red)
             
-            # Affichage du score ainsi que du meilleur score
-            Your_score(Length_of_snake - 1)
-            Write_file(Length_of_snake - 1)
-            Best_score()
-            pygame.display.update()
+            if writeScore == True:
+                # Affichage du score ainsi que du meilleur score
+                Your_score(Length_of_snake - 1)
+                Best_score(Length_of_snake - 1)
+                pygame.display.update()
+                writeScore = False
 
             # Écoute le joueur pour rejouer ou quitter
             for event in pygame.event.get():
@@ -141,6 +153,7 @@ def gameLoop():
                         game_over = True
                         game_close = False
                     if event.key == pygame.K_c:
+                        writeScore = True
                         gameLoop()
 
         # Écoute le joueur pour diriger le serpent ou quitter le jeu
@@ -256,13 +269,30 @@ def gameLoop():
 
 while menu:
     # Lit le meilleur score enregistré et s'il n'y en a pas, affecte 0
-    f = open("score.txt", 'r')
-    bestScore = f.read()
-    if len(bestScore) > 0:
-        bestScore = int(bestScore)
+    # Récupère la liste des scores
+    scores = []
+    f = open("scores.txt", 'r')
+    for score in f.readlines():
+        if(len(score.strip()) > 0):
+            scores.append(int(score.strip()))
+
+    if len(scores) > 0:
+        bestScore = max(scores)
     else:
         bestScore = 0
-    f.close()
+
+    if len(scores) >= 5:
+        lastScores = [scores[len(scores)-1], scores[len(scores)-2], scores[len(scores)-3], scores[len(scores)-4], scores[len(scores)-5]]
+    elif len(scores) == 4:
+        lastScores = [scores[len(scores)-1], scores[len(scores)-2], scores[len(scores)-3], scores[len(scores)-4]]
+    elif len(scores) == 3:
+        lastScores = [scores[len(scores)-1], scores[len(scores)-2], scores[len(scores)-3]]
+    elif len(scores) == 2:
+        lastScores = [scores[len(scores)-1], scores[len(scores)-2]]
+    elif len(scores) == 1:
+        lastScores = scores
+    else:
+        lastScores = []
 
     print(
         """
@@ -270,7 +300,11 @@ while menu:
             2. Quitter
 
             Meilleur score : """
-        + str(bestScore)
+        + str(bestScore) +
+        """
+
+            Liste des 5 derniers scores : """
+        + str(lastScores)
     )
 
     selection = input("\nQue voulez-vous faire ?\n")
