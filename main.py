@@ -93,7 +93,7 @@ def gameLoop():
     wall6y = round(random.randrange(1, dis_width - wall_block) / 10.0) * 10.0
 
     while not game_over:
-       while game_close == True:
+        while game_close == True:
             dis.fill(black)
             message("Tu as perdu ! \n Rejouer : C \n Quitter : Q", red)
             Your_score(Length_of_snake - 1)
